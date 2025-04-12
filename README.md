@@ -6,30 +6,35 @@
 Having é basicamente usado em juncao com o group by para filtrar resultados de um agrupamento.
 
 SELECT coluna1, funcaoAgregacao(coluna2)
+
 FROM nomeTabela
+
 GROUP BY coluna1
+
 HAVING condicao;
 
 ##DIFERENCA ENTRE HAVING E WHERE
 
-É QUE O GROUP BY  É APLICADO DEPOIS QUE OS DADOS JA FORAM AGRUPADOS, ENQUANTO
-O WHERE É APLICADO ANTES DOS DADOS SEREM AGRUPADOS
+É QUE O GROUP BY  É APLICADO DEPOIS QUE OS DADOS JA FORAM AGRUPADOS, ENQUANTO O WHERE É APLICADO ANTES DOS DADOS SEREM AGRUPADOS
 
 ## EXEMPLO HAVING DEPOIS DOS DADOS AGRUPADOS
 
 SELECT FirstName, COUNT(FirstName) AS "QUANTIDADE"
-FROM Person.Person
-GROUP BY FirstName
-HAVING COUNT(Firstname) > 10
-GO
 
-SELECT Productid, SUM(linetotal) as "TOTAL"
+FROM Person.Person
+
+GROUP BY FirstName
+
+HAVING COUNT(Firstname) > 10
+
+## outro exemplo:
+
+´´´SELECT Productid, SUM(linetotal) as "TOTAL"
 FROM Sales.SalesOrderDetail
 GROUP BY ProductID
-HAVING SUM(linetotal) BETWEEN 16200 AND 50000
-GO
+HAVING SUM(linetotal) BETWEEN 16200 AND 50000´´´
 
--- WHERE E HAVING NA PESQUISA
+## WHERE E HAVING NA PESQUISA
 
 SELECT FirstName, COUNT(FirstName) AS "Quantidade"
 FROM Person.Person
