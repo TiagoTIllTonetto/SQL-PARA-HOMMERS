@@ -29,12 +29,14 @@ HAVING COUNT(Firstname) > 10
 
 ## outro exemplo:
 
-´´´
+```SQL
+
 SELECT Productid, SUM(linetotal) as "TOTAL"
 FROM Sales.SalesOrderDetail
 GROUP BY ProductID
 HAVING SUM(linetotal) BETWEEN 16200 AND 50000
-´´´
+
+```
 
 ## WHERE E HAVING NA PESQUISA
 
