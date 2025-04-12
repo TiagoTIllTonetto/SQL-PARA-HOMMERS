@@ -1,19 +1,24 @@
 ## SQL PARA HOMMERS 
 #Por Tiago Till Tonetto
 
-HAVING é basicamente usado em juncao com o group by para filtrar
-resultados de um agrupamento*/
-SELECT coluna1, funcaoAgregacao(coluna2)
-FROM nomeTabela
-GROUP BY coluna1
-HAVING condicao
-GO
+##HAVING 
+ 
+Having é basicamente usado em juncao com o group by para filtrar resultados de um agrupamento.
 
-DIFERENCA ENTRE HAVING E WHERE
+SELECT coluna1, funcaoAgregacao(coluna2)
+
+FROM nomeTabela
+
+GROUP BY coluna1
+
+HAVING condicao;
+
+##DIFERENCA ENTRE HAVING E WHERE
+
 É QUE O GROUP BY  É APLICADO DEPOIS QUE OS DADOS JA FORAM AGRUPADOS, ENQUANTO
 O WHERE É APLICADO ANTES DOS DADOS SEREM AGRUPADOS
 
--- EXEMPLO HAVING DEPOIS DOS DADOS AGRUPADOS
+## EXEMPLO HAVING DEPOIS DOS DADOS AGRUPADOS
 
 SELECT FirstName, COUNT(FirstName) AS "QUANTIDADE"
 FROM Person.Person
