@@ -5,7 +5,7 @@
  
 Having é basicamente usado em juncao com o group by para filtrar resultados de um agrupamento.
 
-```
+``` SQL
 SELECT coluna1, funcaoAgregacao(coluna2)
 FROM nomeTabela
 GROUP BY coluna1
