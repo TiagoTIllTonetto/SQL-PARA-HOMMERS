@@ -18,7 +18,7 @@ HAVING condicao;
 É QUE O GROUP BY  É APLICADO DEPOIS QUE OS DADOS JA FORAM AGRUPADOS, ENQUANTO O WHERE É APLICADO ANTES DOS DADOS SEREM AGRUPADOS
 
 ## EXEMPLO HAVING DEPOIS DOS DADOS AGRUPADOS
-```
+```SQL
 SELECT FirstName, COUNT(FirstName) AS "QUANTIDADE"
 FROM Person.Person
 GROUP BY FirstName
@@ -39,7 +39,7 @@ HAVING SUM(linetotal) BETWEEN 16200 AND 50000
 
 ## WHERE E HAVING NA PESQUISA
 
-````
+````SQL
 
 SELECT FirstName, COUNT(FirstName) AS "Quantidade"
 FROM Person.Person
@@ -52,14 +52,14 @@ GO
 
 ## HAVING
 
-````
+````SQL
 SELECT StateProvinceID, COUNT(StateProvinceid) AS "QUANTIDADE"
 FROM Person.Address
 GROUP BY StateProvinceID
 HAVING COUNT(StateProvinceID) > 1000;
 
 ````
-````
+````SQL
 SELECT ProductID, AVG(linetotal)
 FROM Sales.SalesOrderDetail
 GROUP BY ProductID
@@ -69,36 +69,36 @@ HAVING AVG(linetotal) < 100000
 
 ## AS  RENOMEAR AS COLUNAS 
 
-````
+````SQL
 SELECT TOP 10 AVG(listPrice) AS "PREÇO MEDIO"
 FROM Production.Product
 
 ````
 
 
-````
+````SQL
 SELECT TOP 10 Firstname AS "NOME", LastName AS "SOBRENOME" 
 FROM person.person
 
 ````
-````
+````SQL
 SELECT TOP 10 ProductNumber AS "NUMERO do Produto"
 FROM Production.Product
 
 ````
-````
+````SQL
 SELECT unitPrice AS "PRECO UNITARIO"
 FROM Sales.SalesOrderDetail
 ````
 
 ## SQL INNER JOIN  
 INNER JOIN JUNTA VALORES CORRESPONDENTES DE CAMPOS COMUNS
-````
+````SQL
 SELECT C.ClienteID, C.Nome, E.Rua, E.Cidade
 FROM Cliente C
 INNER JOIN Endereco E on E.EnderecoID = C.EnderecoID;
 ````
-````
+````SQL
 SELECT P.BusinessEntityID, P.Firstname, P.LastName, pe.EmailAddress
 FROM Person.Person as P
 INNER JOIN Person.EmailAddress PE on P.BusinessEntityID = pe.BusinessEntityID
@@ -123,14 +123,14 @@ vai preencher com "NULL"
 
 RIGHT OUTER JOIN ou resumindo / RIGHT JOIN A LÓGICA É A MESMA DO LEFT MAS OLHANDO PRA tabelaB no caso 
 
-````
+````SQL
 SELECT P.BusinessEntityID, P.Firstname, P.LastName, pe.EmailAddress
 FROM Person.Person as P
 LEFT JOIN Person.EmailAddress PE on P.BusinessEntityID = pe.BusinessEntityID
 ````
 
 ## UNION combina doius ou mais resultados de um select em um resultado apenas LEMBRANDO ter a mesma quantidade de colunas e  o mesmo tipo de DADOS.
-````
+````SQL
 SELECT coluna1, coluna2
 FROM tabela1
 UNION
@@ -139,29 +139,29 @@ FROM tabela2
 ````
 ## UNION remove os valores duplicados,  UNION ALL tras ate mesmo os dados duplicados
 DATEPART
-````
+````SQL
 SELECT SalesOrderID, DATEPART(MONTH, orderdate) AS "MES"
 FROM Sales.SalesOrderHeader
 ````
-````
+````SQL
 SELECT AVG(TotalDUE) AS MEDIA, DATEPART(MONTH, OrderDate) AS MES
 FROM Sales.SalesOrderHeader
 GROUP BY DATEPART(MONTH, Orderdate)
 ORDER BY MES;
 ````
-````
+````SQL
 SELECT AVG(TotalDUE) AS MEDIA, DATEPART(YEAR,  OrderDate) AS MES
 FROM Sales.SalesOrderHeader
 GROUP BY DATEPART(YEAR, Orderdate)
 ORDER BY MES;
 ````
-````
+````SQL
 SELECT AVG(TotalDUE) AS MEDIA, DATEPART(DAY,  OrderDate) AS MES
 FROM Sales.SalesOrderHeader
 GROUP BY DATEPART(DAY, Orderdate)
 ORDER BY MES;
 ````
-````
+````SQL
 SELECT AVG(TotalDUE) AS MEDIA, DATEPART(MONTH,  OrderDate) AS MES
 FROM Sales.SalesOrderHeader
 GROUP BY DATEPART(MONTH, Orderdate)
@@ -169,41 +169,41 @@ ORDER BY MES;
 ````
 
 ## OPERACOES DE STRING
-````
+````SQL
 SELECT CONCAT(FirstName, Lastname)
 FROM Person.Person;
 ````
 OU
-````
+````SQL
 SELECT CONCAT(FirstName, ' ', Lastname)
 FROM Person.Person;
 ````
 
 ## TRAZER EM MAIUSCULO UPPER, TRAZER em minusculo LOWER
-````
+````SQL
 SELECT UPPER(FirstName), LOWER(LastName)
 FROM Person.Person;
 ````
 ## Ler a quantidade de caracteres
-````
+````SQL
 SELECT Firstname, LEN(FirstName)
 FROM Person.Person;
 ````
 ## SUBSTRING EXTRAIR DADOS DE STRING
-````
+````SQL
 SELECT Firstname, SUBSTRING(FirstName, 1,3)
 FROM Person.Person
 ````
 
 ## REPLACE substituir 
 
-````
+````SQL
 SELECT REPLACE(ProductNumber, '-', 'teste')
 FROM Production.Product
 ````
 
 ## FUNÇOES MATEMATICA ROUND para arredondar,  SQRT raiz quadrada
-````
+````SQL
 SELECT ROUND(LineTotal, 3), LineTotal
 FROM Sales.SalesOrderDetail;
 ````
@@ -212,12 +212,12 @@ SELECT SQRT(LineTotal), LineTotal
 FROM Sales.SalesOrderDetail;
 ````
 ## SUBQUERY (SUBSELECT)  SELECT DENTRO DE OUTRO SELECT 
-````
+````SQL
 SELECT  * FROM Production.Product
 WHERE ListPrice > (SELECT AVG(listPrice) FROM Production.Product)
 ````
 ## Outro exemplo
-````
+````SQL
 SELECT * FROM HumanResources.Employee
 WHERE JobTitle = 'DESIGN ENGINEER';
 ````
@@ -228,14 +228,14 @@ WHERE BusinessEntityID IN(SELECT BusinessEntityID FROM HumanResources.Employee
 WHERE JobTitle = 'Design Engineer');
 ````
 ## mesmo SELECT com JOIN
-````
+````SQL
 SELECT Firstname
 FROM Person.Person P
 INNER JOIN HumanResources.Employee E ON P.BusinessEntityID = E.BusinessEntityID
 AND E.JobTitle = 'Design Engineer';
 ````
 ## DICA VER qual das duas formas trás mais rapido as informação no exemplo acima  as duas condições usaram o mesmo tempo
-````
+````SQL
 SELECT * FROM Person.Address
 WHERE StateProvinceID IN (
 SELECT StateProvinceID FROM Person.StateProvince
@@ -243,13 +243,13 @@ WHERE NAME = 'ALBERTA')
 ````
 
 ## SELF JOIN AGRUPAR/ORDENAR OS DADOS DENTRO DE UMA MESMA TABELA mas pra isso é necessario usar ALIAS = AS  EXEMPLO tabela1 AS "NOME" */
-````
+````SQL
 SELECT A.ContactName, A.region, B.ContactName, B.Region
 FROM Customers A, Customers B
 WHERE A.REGION = B.REGION
 ````
 ## outro exemplo
-````
+````SQL
 SELECT A.firstname, A.hiredate, B.Firstname, B.hiredate
 FROM Employees A, Employess B
 WHERE DATEPART(YEAR, A.HIREDATE) = DATEPART(YEAR, B.HIREDATE);
@@ -286,7 +286,7 @@ DATETIMEOFFSET Permite armazernar informações data e hora incluindo fuso horar
 
 ## IDENTITY - AUTO_INCREMENT para autoincrementar valores recomendado usar em PRIMARY KEY
 --EXEMPLO
-````
+````SQL
 CREATE TABLE FRUTAS(
 	IDFRUTA INT PRIMARY KEY IDENTITY,
 	NOME VARCHAR(30) NOT NULL,
@@ -303,17 +303,17 @@ CREATE TABLE PRECOS(
 	IDPRECO INT PRIMARY KEY IDENTITY,
 	PRECO MONEY,
 	ID_FRUTA INT
-)
+);
 ````
 ## DICA Criar a FOREIGN KEY por fora da tabela ou seja ALTER TABLE  Para dar o nome a CONSTRAINT
-````
+````SQL
 ALTER TABLE PRECOS ADD CONSTRAINT PRECO_FRUTA
-FOREIGN KEY (ID_FRUTA) REFERENCES FRUTAS (IDFRUTA)
+FOREIGN KEY (ID_FRUTA) REFERENCES FRUTAS (IDFRUTA);
 ````
 DEVE SER FEITA DESSA FORMA A CRIAÇÃO DA CONSTRAINT e não por dentro da tabelapois dessa forma conseguimos dar o nome no caso PRECO_FRUTA sabemos que tem uma restrição na tabela preco_fruta .ao verificar internamente do banco ao inves de um código alátorio 177363287623KHHAG
 
 ## Alterando colunas
-````
+````SQL
 ALTER TABLE FRUTAS
 ALTER COLUMN NOME VARCHAR(40) NOT NULL;
 ````
@@ -324,29 +324,29 @@ FRUTAS =  TABELA
 NOME  = COLUNA A SER ALTERADA
 DESCRICAO = NOVO NOME DA COLUNA 
 COLUMN - PARA INDICAR QUE É UMA ALTERAÇÃO DE COLUNA
-````
+````SQL
 EXEC sp_rename 'FRUTAS.NOME', 'DESCRICAO', 'COLUMN'
 ````
 ## INSERT como usamos IDENTITY para auto incrementar  não precisamos informar nada no ID
-````
+````SQL
 INSERT INTO FRUTAS VALUES ( 'MAÇA', 'VERMELHAS', '2025-04-02')
 INSERT INTO PRECOS VALUES (12.00, 2);
 ````
 ## INSERINDO TABELA COPIA
-````
+````SQL
 SELECT * INTO TESTE FROM FRUTAS;
 ````
 ## UPDATE sempre cuidar para utilizar o filtro WHERE 
-````
+````SQL
 UPDATE TESTE SET NOME = 'BANANA',tipo = 'citricas'
 WHERE IDFRUTA = 3;
 ````
 ## DELETE sempre cuidar para realizar o filtro com WHERE
-````
+````SQL
 DELETE FROM TESTE WHERE IDFRUTA = 5;
 ````
 ## EXCLUINDO TABELAS
-````
+````SQL
 DROP TABLE PRECOS
 ````
 Lembrando que não conseguimos excluir tabelas que são referenciados por outras
@@ -362,13 +362,13 @@ TRUNCATE TABLE PRECOS
 
 ## VIEWS São tabelas criadas para consulta onde personalizamos os dados por exemplo na tabela
 frutas temos os seguintes dados IDFRUTA, DESCRICAO, TIPO E CADASTRO na VIEW vamos personalizar a nossa busca exemplo :
-````
+````SQL
 CREATE VIEW [FRUTAS VERMELHAS] AS 
 SELECT DESCRICAO, TIPO FROM FRUTAS
 WHERE TIPO = 'VERMELHAS';
 ````
 ## A VIEW é baseada na tabela FRUTAS porem vai trazer apenas a DESCRICAO E O TIPO otimizando assim a consulta .
-````
+````SQL
 SELECT * FROM [FRUTAS VERMELHAS];
 ````
 ````
@@ -377,7 +377,7 @@ DROP TRIGGER TRG_ATUALIZA_PRECO
 ## CRIANDO TRGGERS Para atualizar o preço apos o UPDATE
 Ao realizarmos o UPDATE de algum valor no banco esse valor ser MENOR que 9 a TRIGGER ira dispara e fará a correção do PREÇO no caso para 10.00
 o exemplo da TRIGGER É em SQL SERVER
-````
+````SQL
 CREATE TRIGGER TRG_ATUALIZA_PRECO
 ON PRECOS
 FOR UPDATE
@@ -394,7 +394,7 @@ END
 GO
 ````
 ## REMOVENDO A TRIGGER DO BANCO
-````
+````SQL
 DROP TRIGGER TRG_ATUALIZA_PRECO
 ````
 
@@ -403,7 +403,7 @@ Ao inserir um valor no banco que seja menor que 8.00 a trigger irá disparar faz
 sera corrido pela trigger ao ser inserido. 
 A trigger foi feita em SQL SERVER.
 
-````
+````SQL
 CREATE TRIGGER TRG_ATUALIZA_PRECO_AO_CADASTRAR
 ON PRECOS
 FOR INSERT
@@ -424,7 +424,7 @@ GO
 
 ## Removendo os dados ao realizar o INSERT 
 Ao inserir valores que sejam MENORES que 8.00 a trigger era remover o insert, Trigger feita em SQL SERVER.
-````
+````SQL
 CREATE TRIGGER TRG_DELETA_PRECO_AO_CADAtradar
 ON PRECOS
 FOR INSERT
@@ -451,7 +451,7 @@ CREATE TABLE USUARIOS (
 GO
 
 ## Criando tabelas 
-````
+````SQL
 CREATE TABLE SALARIOS (
 	IDSALARIO INT PRIMARY KEY IDENTITY,
 	SALARIO MONEY,
@@ -459,12 +459,12 @@ CREATE TABLE SALARIOS (
 );
 ````
 ## Alterando tabela e inserindo CONSTRAINT
-````
+````SQL
 ALTER TABLE SALARIOS ADD CONSTRAINT FK_SALARIOS_USUARIOS 
 FOREIGN KEY (ID_USUARIO) REFERENCES USUARIOS (IDUSUARIO);
 ````
 ## Realizando Insert
-````
+````SQL
 INSERT INTO SALARIOS VALUES (1500.00,1)
 INSERT INTO SALARIOS VALUES (2500.00,2)
 INSERT INTO SALARIOS VALUES (3500.00,3)
